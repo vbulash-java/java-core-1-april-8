@@ -8,48 +8,23 @@ package ru.bulash.animals;
 5. Создать массив котов и тарелку с едой, попросить всех котов покушать из этой тарелки и потом вывести информацию о сытости котов в консоль.
 6. Добавить в тарелку метод, с помощью которого можно было бы добавлять еду в тарелку.
  */
-public class Cat extends Animal {
-	protected final int maxRun = 200;
-	protected final int maxSwim = 0;
+public class Plate {
+    private int food;
 
-	public boolean satied = false;
-	private int stomachVolume = 0;
-	public static Plate plate = null;
+    public Plate(int quantity) {
+        this.food = quantity;
+    }
 
-	public Cat(String name, int stomachVolume) {
-		super(name);
-		this.stomachVolume = stomachVolume;
-	}
+    public boolean eatFrom(int food) {
+        if(food > this.food) {
+            return false;
+        } else {
+            this.food -= food;
+            return true;
+        }
+    }
 
-	@Override
-	public int getMaxRun() {
-		return maxRun;
-	}
-
-	@Override
-	public int getMaxSwim() {
-		return maxSwim;
-	}
-
-	@Override
-	public void swim(int distance) {
-		System.out.println("Коты не умеют плавать!");
-	}
-
-	// +Еда
-	public static void setPlate(Plate plate) { Cat.plate = plate; }
-
-	public boolean eat() {
-		if(this.satied) {
-			System.out.printf("%s сыт(а), можно не кормить\n", this.getName());
-		} else {
-			this.satied = plate.eatFrom(this.stomachVolume);
-			if(this.satied) {
-				System.out.printf("%s наелся / наелась\n", this.getName());
-			} else {
-				System.out.printf("Для %s не хватило еды :-(\n", this.getName());
-			}
-		}
-		return this.satied;
-	}
+    public void addFood(int food) {
+        this.food += food;
+    }
 }
